@@ -4,4 +4,15 @@ var $ = jQuery;
 
 $("body").html("<div>Hello</div>");
 
-alert("Hello");
+
+jQuery.ajax("test.html",{
+    method : "post",
+    data : {
+        param1 : "",
+        param2 : ""        
+    }
+}).then( (data,status,jQxhr) => {
+    alert("here");
+}).fail( () => {
+    
+});
