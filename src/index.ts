@@ -1,6 +1,6 @@
 import jQuery from 'jquery';
 import GoldenLayout from 'golden-layout';
-import GridComponent from './components/grid'
+import {Slick} from '../types/slickgrid/SlickGrid';
 
 var $ = jQuery;
 
@@ -46,13 +46,10 @@ let configuration: GoldenLayout.Config = {
 let layout = new GoldenLayout(configuration);
 
 layout.registerComponent('gridSection',function(container : any,state : any){
-    let grid = new GridComponent(); 
-    grid.setHeaders([{
-        name : 'Col 1'
-    },{
-        name : 'Col 2'
-    }]);
-    grid.render();
+
+    //TODO :- This needs to be fixed.
+    let s : Slick.Grid<any> = new Slick.Grid('abc',[],[],{});
+    s.render();
 });
 
 
