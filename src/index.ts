@@ -1,6 +1,6 @@
 import jQuery from 'jquery';
 import GoldenLayout from 'golden-layout';
-import {Slick} from '../types/slickgrid/SlickGrid';
+import 'slickgrid-6pac';
 
 var $ = jQuery;
 
@@ -32,12 +32,8 @@ let configuration: GoldenLayout.Config = {
                 type: 'component',
                 componentName: 'example',
                 componentState: { text: 'Component 2' }
-            },
-            {
-                type: 'component',
-                componentName: 'example',
-                componentState: { text: 'Component 3' }
             }
+            
         ]
     }]
 };
@@ -45,16 +41,61 @@ let configuration: GoldenLayout.Config = {
 
 let layout = new GoldenLayout(configuration);
 
-layout.registerComponent('gridSection',function(container : any,state : any){
+interface MyData extends Slick.SlickData {
+    title: string;
+    duration: string;
+    percentComplete: number;
+    start: string;
+    finish: string;
+    effortDriven: boolean;
+}
 
-    //TODO :- This needs to be fixed.
-    let s : Slick.Grid<any> = new Slick.Grid('abc',[],[],{});
-    s.render();
+layout.registerComponent('gridSection', function (container: any, state: any) {
+
+    
+
+    var grid: Slick.Grid<MyData>;
+    var columns: Slick.Column<MyData>[] = [
+        { id: "title", name: "Title", field: "title" },
+        { id: "duration", name: "Duration", field: "duration" },
+        { id: "%", name: "% Complete", field: "percentComplete" },
+        { id: "start", name: "Start", field: "start" },
+        { id: "finish", name: "Finish", field: "finish" },
+        { id: "effort-driven", name: "Effort Driven", field: "effortDriven" }
+    ];
+
+    var options: Slick.GridOptions<MyData> = {
+        enableCellNavigation: true,
+        enableColumnReorder: false
+    };
+
+
+    var data: MyData[] = [];
+    for (var i = 0; i < 500; i++) {
+        data[i] = {
+            title: "Task " + i,
+            duration: "5 days",
+            percentComplete: Math.round(Math.random() * 100),
+            start: "01/01/2009",
+            finish: "01/05/2009",
+            effortDriven: (i % 5 == 0)
+        };
+    }
+
+    
+    
+
+    container.on( 'open', function(){        
+        grid = new Slick.Grid<MyData>(container.getElement(), data, columns, options);
+        grid.render();
+    });
+
+
 });
 
 
-layout.registerComponent('example',function(container : any,state : any){
-    container.getElement().html( '<h2>' + state.text + '</h2>');
+layout.registerComponent('example', function (container: any, state: any) {
+    container.getElement().html('<h2>' + state.text + '</h2>');
 });
 
 layout.init();

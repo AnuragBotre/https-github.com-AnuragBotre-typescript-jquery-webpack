@@ -21,10 +21,11 @@
   "homepage": "https://github.com/AnuragBotre/typescript-jquery-webpack#readme",
   "dependencies": {
     "@types/jquery": "^2.0.46",
+    "@types/slickgrid": "^2.1.26",
     "golden-layout": "^1.5.9",
     "jquery": "^2.2.4",
     "save": "^2.3.3",
-    "slickgrid": "^2.4.2",
+    "slickgrid-6pac": "^2.2.13",
     "ts-loader": "^5.3.3",
     "typescript": "^3.2.2",
     "webpack": "^4.28.4"
